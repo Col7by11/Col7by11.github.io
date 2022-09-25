@@ -21,7 +21,7 @@ title: "Assignment 4 - Data Wrangging with `dplyr`"
 
 ***Submission***: Submit the link on Github of the assignment to Canvas under Assignment 4. 
 
-```{r setup, include=FALSE}
+```{r}
 knitr::opts_chunk$set(message = FALSE)
 ```
 
@@ -32,7 +32,7 @@ knitr::opts_chunk$set(message = FALSE)
 An R package can be installed by `install.packages` function. Install `tidyverse` if you have not done so. 
 
 ```{r}
-install.packages('tidyverse')
+install.packages('tidyverse', repos='https://CRAN.R-project.org/package=tidyverse')
 library(tidyverse)
 ```
 
@@ -173,6 +173,9 @@ df %>% filter(month==9|month==10|month==11) %>% group_by(month2) %>% summarise(d
 
 - Compare the average number of hospitalizations between weekdays and weekends in Summer 2020
 ```{r}
+library(lubridate)
+df$weekend <- weekdays(df$date)
+df$weekdays <- weekdays(df$date)
 df %>% filter(month==6|month==7|month==8) %>% group_by(weekend) %>% summarise(hospitalized=mean(hospitalized))
 df %>% filter(month==6|month==7|month==8) %>% group_by(weekdays) %>% summarise(hospitalized=mean(hospitalized))
 ```
