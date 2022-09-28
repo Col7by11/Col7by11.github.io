@@ -1,0 +1,54 @@
+---
+title: "Assignment 3 Extra Credit"
+author: "Colby Phillips"
+date: "2022-09-28"
+output: html_document
+
+
+
+---
+16.  Find your own dataset, import it and implement the following functions on the data
+
+- head
+- str
+- names
+- mean, min, max
+- table
+- is.na
+- colSums
+- class
+- cor
+- by
+- ifelse
+- case_when
+```{r}
+library(lubridate)
+library(dplyr)
+df <- read.csv("C:\\Users\\student\\OneDrive - Bryant University\\Desktop\\R\\Col7by11.github.io\\adult_census.csv")
+head(df)
+str(df)
+names(df)
+mean(df$age, na.rm=TRUE)
+min(df$age, na.rm=TRUE)
+max(df$age, na.rm=TRUE)
+table(df$age)
+sum(is.na(df))
+colSums(is.na(df))
+class(df$age)
+cor(df$age, df$education.num)
+by(df$age, df$education.num, FUN = mean)
+df$sex2 <- ifelse(df$sex=="male",'Male','Female')
+df$age2 <- case_when(df$age<18 ~ 'Child',df$age<64 ~ 'Adult',TRUE~'Elder')
+```
+
+
+17.  In the dataset in #16, practice the follows.  You can reuse the code of 16. 
+
+- Create a categorical variable from a continuous variable
+- From one categorical variable, create a new categorical variable with fewer categories
+```{r}
+df$age2 <- case_when(df$age<18 ~ 'Child',df$age<64 ~ 'Adult',TRUE~'Elder')
+df$native.country2 <- case_when(df$native.country %in% c('United-States') ~ 'United States', TRUE ~ 'Other')
+```
+
+
