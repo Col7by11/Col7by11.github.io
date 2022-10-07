@@ -17,3 +17,5 @@
 [Assignment 7](assignment7.html)
 
 [Plot](plot.png)
+
+[Assignment 7 Extra Credit](assignment7_extra_credits.html)
