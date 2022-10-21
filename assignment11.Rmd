@@ -67,8 +67,7 @@ plot(varImp(model1f))
 ```{r}
 library(glmnet)
 model2 <- train(target~., data=df_train, 
-                method = "rpart2",
-                maxdepth=3)
+                method = "glmnet")
 pred1 <- predict(model2, df_test)
 cm1 <- confusionMatrix(data = pred1, reference = df_test$target)
 cm1$overall[1]
