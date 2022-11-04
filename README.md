@@ -32,4 +32,4 @@
 
 [Midterm Tab](midterm_tab.html)
 
-[Midterm Presentation](midterm.html)
+[Midterm Presentation](Midterm.html)
