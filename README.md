@@ -31,3 +31,5 @@
 [Assignment 12](assignment12.html)
 
 [Midterm Tab](midterm_tab.html)
+
+[Midterm Presentation](midterm.html)
