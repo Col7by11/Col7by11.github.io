@@ -352,6 +352,19 @@ bwplot(results)
 ```
 ---
 #New Model Comparison!
+.left-code[
+```{r plotend}
+results <- resamples(list('Decision Tree' = tree_approach3,'Random Forest' = forest_ranger1))
+
+bwplot(results)
+```
+]
+.right-plot[
+```{r, ref.label = "plotend", echo = FALSE, fig.height=6, fig.width=7}
+```
+]
+---
+#New Model Cofusion Matirx!
 
 .left-code[
 ```{r plot14}
@@ -364,3 +377,8 @@ cm2$overall[1]
 ```{r, ref.label = "plot14", echo = FALSE, fig.height=6, fig.width=7}
 ```
 ]
+---
+#Fun Issues!
+
+- KNITTING!!!
+- Plots not doing what the code says!

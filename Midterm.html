@@ -113,9 +113,7 @@ df %&gt;% ggplot()+
   geom_density(mapping = aes(x = age, color=provider))+
   labs(x="Age", y="Density", title = "Age Distribution by Provider", caption="What ages are most common for each provider") 
 ```
-]
-.right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](Plot2.png)
 ]
 ---
 #States with Most People Admitted!
@@ -129,7 +127,7 @@ df %&gt;% ggplot()+
 ```
 ]
 .right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](Midterm_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 ]
 ---
 #Most Common Gender Admitted!
@@ -143,7 +141,7 @@ df %&gt;% ggplot()+
 ```
 ]
 .right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](Midterm_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
 ---
 #Most Commonly Used Provider!
@@ -156,9 +154,7 @@ df %&gt;% ggplot()+
   labs(x="Provider", y="Count", title = "Provider Distribution", caption="Most commonly used provider") 
 ```
 ]
-.right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
-]
+![](Plot5.png)
 ---
 #Ages with Highest Charges!
 
@@ -170,7 +166,7 @@ df %&gt;% ggplot()+geom_point(aes(x=age, y=tot))+
 ```
 ]
 .right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](Midterm_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 ]
 ---
 #Ages with Longest Stays!
@@ -183,7 +179,7 @@ df %&gt;% ggplot()+geom_point(aes(x=age, y=los))+
 ```
 ]
 .right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](Midterm_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 ]
 ---
 #Most Commonly Used Providers by Sex!
@@ -196,9 +192,7 @@ df %&gt;% ggplot()+
   labs(x="Sex", y="Count", title = "Provider Used by Sex", caption="Most commonly used providers by each sex")  
 ```
 ]
-.right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
-]
+![](Plot8.png)
 ---
 #Ages of Admiited Patients by Sex!
 
@@ -207,17 +201,10 @@ df %&gt;% ggplot()+
 ```r
 df %&gt;% ggplot()+
   geom_boxplot(mapping = aes(x = age, y = sex))+
-  labs(x="Age", y="Sex", title = "Age by Sex", caption="Ages of admitted patients by sex") 
+  labs(x="Age", y="Sex", title = "Age by Sex", caption="Ages of admitted patients by sex")
 ```
 ]
-.right-plot[
-
-```
-## Warning: Continuous x aesthetic -- did you forget aes(group=...)?
-```
-
-![](Midterm_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
-]
+![](Plot9.png)
 ---
 #Ages with Highest Amount of Charges!
 
@@ -234,7 +221,7 @@ df %&gt;% ggplot()+geom_smooth(aes(x=age, y=tot))+
 ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 ```
 
-![](Midterm_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](Midterm_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 ]
 ---
 #Gender Most Often Admitted by Age!
@@ -249,7 +236,7 @@ df %&gt;% ggplot()+
 ```
 ]
 .right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-12-1.gif)&lt;!-- --&gt;
+![](Midterm_files/figure-html/unnamed-chunk-8-1.gif)&lt;!-- --&gt;
 ]
 
 
@@ -268,7 +255,7 @@ bwplot(results)
 ![](Midterm_files/figure-html/plot12-1.png)&lt;!-- --&gt;
 ]
 .right-plot[
-![](Midterm_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](Midterm_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 ]
 ---
 #Confusion Matrix Comparison!
@@ -290,6 +277,21 @@ cm1$overall[1]
 
 ---
 #New Model Comparison!
+.left-code[
+
+```r
+results &lt;- resamples(list('Decision Tree' = tree_approach3,'Random Forest' = forest_ranger1))
+
+bwplot(results)
+```
+
+![](Midterm_files/figure-html/plotend-1.png)&lt;!-- --&gt;
+]
+.right-plot[
+![](Midterm_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+---
+#New Model Cofusion Matirx!
 
 .left-code[
 
@@ -311,6 +313,11 @@ cm2$overall[1]
 ## 0.3127826
 ```
 ]
+---
+#Fun Issues!
+
+- KNITTING!!!
+- Plots not doing what the code says!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
