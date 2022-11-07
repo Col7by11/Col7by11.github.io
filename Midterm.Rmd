@@ -115,10 +115,7 @@ df %>% ggplot()+
   geom_density(mapping = aes(x = age, color=provider))+
   labs(x="Age", y="Density", title = "Age Distribution by Provider", caption="What ages are most common for each provider") 
 ```
-]
-.right-plot[
-```{r, ref.label = "plot2", echo = FALSE, fig.height=6, fig.width=7}
-```
+![](Plot2.png)
 ]
 ---
 #States with Most People Admitted!
@@ -158,10 +155,7 @@ df %>% ggplot()+
   labs(x="Provider", y="Count", title = "Provider Distribution", caption="Most commonly used provider") 
 ```
 ]
-.right-plot[
-```{r, ref.label = "plot5", echo = FALSE, fig.height=6, fig.width=7}
-```
-]
+![](Plot5.png)
 ---
 #Ages with Highest Charges!
 
@@ -198,10 +192,7 @@ df %>% ggplot()+
   labs(x="Sex", y="Count", title = "Provider Used by Sex", caption="Most commonly used providers by each sex")  
 ```
 ]
-.right-plot[
-```{r, ref.label = "plot8", echo = FALSE, fig.height=6, fig.width=7}
-```
-]
+![](Plot8.png)
 ---
 #Ages of Admiited Patients by Sex!
 
@@ -212,10 +203,7 @@ df %>% ggplot()+
   labs(x="Age", y="Sex", title = "Age by Sex", caption="Ages of admitted patients by sex")
 ```
 ]
-.right-plot[
-```{r, ref.label = "plot9", echo = FALSE, fig.height=6, fig.width=7}
-```
-]
+![](Plot9.png)
 ---
 #Ages with Highest Amount of Charges!
 
