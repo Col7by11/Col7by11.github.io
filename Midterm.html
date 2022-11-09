@@ -108,11 +108,6 @@ df %&gt;% ggplot()+
 
 .left-code[
 
-```r
-df %&gt;% ggplot()+
-  geom_density(mapping = aes(x = age, color=provider))+
-  labs(x="Age", y="Density", title = "Age Distribution by Provider", caption="What ages are most common for each provider") 
-```
 ![](Plot2.png)
 ]
 ---
@@ -148,11 +143,6 @@ df %&gt;% ggplot()+
 
 .left-code[
 
-```r
-df %&gt;% ggplot()+
-  geom_bar(mapping = aes(x = provider))+
-  labs(x="Provider", y="Count", title = "Provider Distribution", caption="Most commonly used provider") 
-```
 ]
 ![](Plot5.png)
 ---
@@ -186,11 +176,6 @@ df %&gt;% ggplot()+geom_point(aes(x=age, y=los))+
 
 .left-code[
 
-```r
-df %&gt;% ggplot()+
-  geom_bar(mapping=aes(x=sex, fill=provider), position = 'fill')+
-  labs(x="Sex", y="Count", title = "Provider Used by Sex", caption="Most commonly used providers by each sex")  
-```
 ]
 ![](Plot8.png)
 ---
@@ -198,11 +183,6 @@ df %&gt;% ggplot()+
 
 .left-code[
 
-```r
-df %&gt;% ggplot()+
-  geom_boxplot(mapping = aes(x = age, y = sex))+
-  labs(x="Age", y="Sex", title = "Age by Sex", caption="Ages of admitted patients by sex")
-```
 ]
 ![](Plot9.png)
 ---
