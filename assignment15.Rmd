@@ -96,7 +96,7 @@ vector <- function(x)
 return(x)    
 }
 library(tidyverse)
-df <- read_csv('C:/Users/student/OneDrive - Bryant University/College/7th Semester/R/titanic.csv')
+df <- read_csv('titanic.csv')
 x1 <- vector(df$Survived)
 sum(is.na(x1))
 ```
