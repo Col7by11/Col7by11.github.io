@@ -126,7 +126,7 @@ Column {data-width=500}
 -----------------------------------------------------------------------
 
 
-####
+#### Earnings By Sport
 
 ```{r}
 renderPlotly({
@@ -143,11 +143,11 @@ renderPlotly({
 Main Tab 4
 =======================================================================
 
-Column {data-width=500}
+Column {data-width=500, .tabset}
 -----------------------------------------------------------------------
 
 
-#### Earnings by Sport
+### Earnings by Sport
 
 ```{r}
 renderPlotly({
@@ -169,7 +169,9 @@ renderPlotly({
 image_url <- "https://s3-us-west-2.amazonaws.com/scorestream-team-profile-pictures/274145/20181010232546_702_mascot300.png"
 ```
 
------------------------------------------------------------------------
+<center><img src="`r image_url`"></center>
+
+
 
 Main Tab 5
 =======================================================================
