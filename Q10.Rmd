@@ -1,5 +1,5 @@
 ---
-title: "Athelete Top 100 Earnings"
+title: "Athlete Top 100 Earnings"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
