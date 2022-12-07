@@ -1,0 +1,117 @@
+---
+title: "Q2"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+    social: menu
+---
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(knitr)
+library(DT)
+df <- read_csv("C:\\Users\\student\\OneDrive - Bryant University\\Desktop\\R\\Col7by11.github.io\\Forbes Richest Atheletes (Forbes Richest Athletes 1990-2020).csv")
+
+# Create a ggplot object
+d1 <- df %>%  mutate(earnings =`earnings ($ million)`)
+
+p <- d1 %>% 
+  ggplot()+ 
+  geom_histogram(mapping=aes(x=earnings))
+
+d1$earnings2 <-  case_when(d1$earnings<=20 ~'0-20', ((d1$earnings>20) & (d1$earnings <= 30))~'20-30', ((d1$earnings>30) & (d1$earnings<=40))~'30-40',  ((d1$earnings>40) & (d1$earnings<=60))~'40-60',TRUE~'60+') 
+
+p1 <- d1 %>% 
+  ggplot()+ 
+  geom_bar(mapping=aes(x=Sport, fill=earnings2))
+
+p2 <- d1 %>% 
+   filter(Nationality=="USA") %>% 
+  ggplot()+
+ geom_bar(mapping=aes(x=Sport))
+  
+p3 <- d1 %>% 
+  filter(Nationality=="Brazil"|Nationality=="UK") %>% 
+  ggplot()+
+ geom_bar(mapping=aes(x=Sport,fill=Nationality),position="dodge")
+  
+```
+
+#  {.sidebar}
+
+### 1. Athlete Earnings
+
+Athletes have some of the highest wages worldwide.  These earnings can vary across sports and countries. This data set shows the top 100 athlete earnings worldwide.
+
+### 2. Flexdashboard and Plotly
+
+This interactive uses `flexdashboard` and `plotly` to visualize the data.
+
+# Main Tab 1
+
+## Column {.tabset data-width="500,"}
+
+### Column Tab 1
+
+```{r}
+d1
+```
+
+### Column Tab 2
+
+```{r}
+kable(d1)
+```
+
+### Column Tab 3
+
+```{r}
+datatable(d1, options = list(
+  pageLength = 25
+))
+```
+
+## Column {data-width="500"}
+
+### Row 1
+
+```{r}
+p
+```
+
+# Main Tab 2
+
+## Column {data-width="500"}
+
+#### 1. Plotly for R
+
+Plotly is an R package for creating interactive web-based graphs via plotly's JavaScript graphing library, plotly.js.
+
+The plotly R package serializes ggplot2 figures into Plotly's universal graph JSON. plotly::ggplotly will crawl the ggplot2 figure, extract and translate all of the attributes of the ggplot2 figure into JSON (the colors, the axes, the chart type, etc), and draw the graph with plotly.js. Furthermore, you have the option of manipulating the Plotly object with the style function.
+
+#### 2. Cutomizing the Layout
+
+Since the ggplotly() function returns a plotly object, we can manipulate that object in the same way that we would manipulate any other plotly object. A simple and useful application of this is to specify interaction modes, like plotly.js' layout.dragmode for specifying the mode of click+drag events.
+
+```{r}
+p1
+```
+
+# Main tab 3
+
+```{r}
+p2
+```
+
+## Column {data-width="500"}
+
+# Main tab 4
+
+```{r}
+p3
+```
+
+## Column {data-width="500"}

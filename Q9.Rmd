@@ -1,0 +1,137 @@
+
+---
+title: "Earnings - Combination of Inputs"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+    social: menu
+
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+# load data in 'global' chunk so it can be shared by all users of the dashboard
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(knitr)
+library(DT)
+library(lubridate)
+df <- read_csv("Forbes Richest Atheletes (Forbes Richest Athletes 1990-2020).csv")
+
+df <- df %>%  mutate(earnings =`earnings ($ million)`)
+df$date <- mdy(df$date)
+earnings <- unique(df$earinngs)
+unique_sport <- unique(df$Sport)
+```
+
+{.sidebar}
+=======================================================================
+
+Athletes have some of the highest wages worldwide.  These earnings can vary across sports and countries. This data set shows the top 100 athlete earnings worldwide. Select the input for the plots. 
+
+
+```{r}
+checkboxGroupInput(inputId = "sport_input", 
+                   label = h3("Sport"),
+                   choices = unique_sport, 
+                   inline = TRUE,
+                   selected = 'NBA')
+
+radioButtons(inputId = "unique_sport", 
+             label = h2("Select Sport"),
+             choices = c('NBA', 'NFL', 'NHL', 'Soccer', 'Tennis', 'Golf', 'Boxing', 'Racing'),
+             inline = TRUE,
+             selected = 1)
+
+sliderInput(inputId = "earnings_input",
+            label = h2("Select Earnings"),
+            min = min(df$earnings, na.rm=TRUE),
+            max = max(df$earnings, na.rm=TRUE),
+            value=c(0,150))
+```
+
+Main Tab 1
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Density Plot
+
+```{r}
+renderPlotly({
+  p1 <- df %>% 
+    filter(Sport %in% input$sport_input) %>% 
+    ggplot(aes(x=earnings))+
+    geom_density()
+  ggplotly(p1)
+})
+```
+
+
+Main Tab 2
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Density Plot
+
+```{r}
+renderPlotly({
+  p2 <- df %>% 
+    filter(Sport==input$unique_sport) %>% 
+    ggplot(aes(x=earnings))+
+    geom_density()
+  ggplotly(p2)
+})
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### What is Density Plot?
+
+- A density plot is an alternative to Histogram used for visualizing the distribution of a continuous variable. The peaks of a Density Plot help to identify where values are concentrated over the interval of the continuous variable. Compared to Histograms, Density Plots are better at finding the distribution shape because they are re not affected by the number of bins used (each bar used in a typical histogram).
+
+- For example, a Histogram with only 4 bins wouldn’t produce a distinguishable enough shape of distribution as a 30-bin Histogram would. However, with Density Plots, this isn’t an issue.
+
+![](https://datavizcatalogue.com/methods/images/top_images/SVG/density_plot.svg)
+
+
+
+Main Tab 3
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Bar Plot
+
+```{r}
+renderPlotly({
+  p3 <- df %>% 
+    filter(earnings>input$earnings_input[1], earnings<input$earnings_input[2]) %>% 
+    ggplot(aes(x=Sport))+
+    geom_bar()
+  ggplotly(p3)
+})
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### What is Bar Chart?
+
+- There are two types of bar charts: geom_bar() and geom_col(). geom_bar() makes the height of the bar proportional to the number of cases in each group (or if the weight aesthetic is supplied, the sum of the weights). 
+
+- If you want the heights of the bars to represent values in the data, use geom_col() instead. geom_bar() uses stat_count() by default: it counts the number of cases at each x position. geom_col() uses stat_identity(): it leaves the data as is.
+
+```{r}
+image_url <- "https://s3-us-west-2.amazonaws.com/scorestream-team-profile-pictures/274145/20181010232546_702_mascot300.png"
+```
+<center><img src="`r image_url`"></center>
+

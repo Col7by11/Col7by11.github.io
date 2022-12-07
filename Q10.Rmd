@@ -1,0 +1,212 @@
+---
+title: "Athelete Top 100 Earnings"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+    social: menu
+
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+# load data in 'global' chunk so it can be shared by all users of the dashboard
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(knitr)
+library(DT)
+library(lubridate)
+df <- read_csv("Forbes Richest Atheletes (Forbes Richest Athletes 1990-2020).csv")
+
+# Create a ggplot object
+df <- df %>%  mutate(earnings =`earnings ($ million)`)
+df$date <- mdy(df$date)
+earnings <- unique(df$earinngs)
+unique_sport <- unique(df$Sport)
+```
+
+{.sidebar}
+=======================================================================
+
+### 1. Athlete Earnings
+
+Athletes have some of the highest wages worldwide.  These earnings can vary across sports and countries. This data set shows the top 100 athlete earnings worldwide.
+
+### 2. Five Input Methods
+
+```{r}
+checkboxGroupInput(inputId = "sport_input", 
+                   label = h3("Sport"),
+                   choices = unique_sport, 
+                   inline = TRUE,
+                   selected = 'NBA')
+
+radioButtons(inputId = "unique_sport", 
+             label = h2("Sport"),
+             choices = c('NBA', 'NFL', 'NHL', 'Soccer', 'Tennis', 'Golf', 'Boxing', 'Racing'),
+             inline = TRUE,
+             selected = 1)
+
+sliderInput(inputId = "earnings_input",
+            label = h2("Earnings"),
+            min = min(df$earnings, na.rm=TRUE),
+            max = max(df$earnings, na.rm=TRUE),
+            value=c(0,150))
+
+dateRangeInput(inputId = "date_input", 
+               label = h2("Date range"), 
+               start = min(df$date), 
+               end = max(df$date),
+               min = min(df$date), 
+               max = max(df$date))
+
+selectInput(inputId = "sport_input", 
+            label = h3("Select Sport"),
+            choices = unique_sport, 
+            selected = 'NBA')
+```
+
+Main Tab 1
+=======================================================================
+
+Column {data-width=500, .tabset}
+-----------------------------------------------------------------------
+
+### Column Tab 1
+
+```{r}
+df
+```
+
+
+### Column Tab 2
+
+```{r}
+kable(df)
+```
+
+
+### Column Tab 3
+
+```{r}
+datatable(df, options = list(
+  pageLength = 25
+))
+```
+
+
+Main Tab 2
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+
+#### Earnings Per Sport
+
+```{r}
+library(plotly)
+renderPlotly({
+  p1 <- df %>% 
+    filter(Sport %in% input$sport_input) %>% 
+    ggplot(aes(x=earnings))+
+    geom_density()
+  ggplotly(p1)
+})
+```
+
+-----------------------------------------------------------------------
+
+Main Tab 3
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+
+####
+
+```{r}
+renderPlotly({
+  p2 <- df %>% 
+    filter(Sport==input$unique_sport) %>% 
+    ggplot(aes(x=earnings))+
+    geom_density()
+  ggplotly(p2)
+})
+```
+
+-----------------------------------------------------------------------
+
+Main Tab 4
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+
+#### Earnings by Sport
+
+```{r}
+renderPlotly({
+  p3 <- df %>% 
+    filter(earnings>input$earnings_input[1], earnings<input$earnings_input[2]) %>% 
+    ggplot(aes(x=Sport))+
+    geom_bar()
+  ggplotly(p3)
+})
+```
+
+### What is Bar Chart?
+
+- There are two types of bar charts: geom_bar() and geom_col(). geom_bar() makes the height of the bar proportional to the number of cases in each group (or if the weight aesthetic is supplied, the sum of the weights). 
+
+- If you want the heights of the bars to represent values in the data, use geom_col() instead. geom_bar() uses stat_count() by default: it counts the number of cases at each x position. geom_col() uses stat_identity(): it leaves the data as is.
+
+```{r}
+image_url <- "https://s3-us-west-2.amazonaws.com/scorestream-team-profile-pictures/274145/20181010232546_702_mascot300.png"
+```
+
+-----------------------------------------------------------------------
+
+Main Tab 5
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+
+#### Earnings by Date
+
+```{r}
+renderPlotly({
+  p4 <- df %>% 
+    filter(date > input$date_input[1], date < input$date_input[2]) %>% 
+    ggplot(aes(x=earnings))+
+    geom_density()
+  ggplotly(p4)
+})
+```
+
+-----------------------------------------------------------------------
+
+Main Tab 6
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+
+#### Earnings by Sport
+
+```{r}
+renderPlotly({
+  p5 <- df %>% 
+    filter(Sport==input$sport_input) %>% 
+    ggplot(aes(x=earnings))+
+    geom_density()
+  ggplotly(p5)
+})
+```
